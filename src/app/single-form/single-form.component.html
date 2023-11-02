@@ -1,0 +1,255 @@
+<div class="container">
+  <h2 class="text-center mb-5 py-">Sign Up for Travel Assistant</h2>
+  <!-- <img src="assets/logo.gif" style="height: 200px; width: 200px; border: 5px solid black;" class="center mb-0 py-0"> -->
+  <div class="row my-flex-card">
+    <div class="col-md-10 mx-auto">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="frmStepper" (submit)="onSubmit()">
+            <app-my-stepper #cdkStepper formArrayName="steps" [linear]="isLinear">
+              <cdk-step [editable]="isEditable" formGroupName="0" [stepControl]="formArray.get([0])">
+                <ng-template cdkStepLabel>
+                  <span class="icon is-medium">
+                    <fa-icon [icon]="faPerson" size="fa-lg"></fa-icon>
+                  </span>
+                  <span>Sign Up</span>
+                </ng-template>
+                <div class="container">
+                  <div class="field is-horizontal">
+                    <div class="field-body">
+                      <div class="field">
+                        <label class="label">First Name</label>
+                        <p class="control is-expanded has-icons-right">
+                          <input formControlName="firstName" class="input" type="input" placeholder="First Name">
+                          <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                          </span>
+                        </p>
+                      </div>
+                      <div class="field">
+                        <label class="label">Last Name</label>
+                        <p class="control is-expanded has-icons-right">
+                          <input formControlName="lastName" class="input" type="input" placeholder="Last Name">
+                          <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field is-horizontal">
+                    <div class="field-body">
+                      <div class="field">
+                        <label class="label">Email Address</label>
+                        <div class="control has-icons-right">
+                          <input formControlName="emailId" class="input" type="text" placeholder="Text input">
+                          <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <label class="label">Mobile No</label>
+                        <p class="control is-expanded has-icons-right">
+                          <input formControlName="mobileNumber" class="input" type="text" placeholder="Last Name">
+                          <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="field is-horizontal">
+                    <div class="field-body">
+                      <div class="field">
+                        <label class="label">Password</label>
+                        <div class="control has-icons-right">
+                          <input formControlName="password" class="input" type="password" placeholder="password">
+                          <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <label class="label">Confirm Password</label>
+                        <p class="control is-expanded has-icons-right">
+                          <input formControlName="confirmPassword" class="input" type="password" placeholder="confirm password">
+                          <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <footer class="my-footer">
+                    <div class="buttons">
+                      <button [disabled]="formArray.get([0])?.invalid" class="button is-outline is-primary"
+                        cdkStepperNext>
+                        <span> Next</span>
+                        <span class="icon medium">
+                          <fa-icon [icon]="faChevronRight" size="fa-lg"> </fa-icon>
+                        </span>
+                      </button>
+                      <a style="margin-left: 35px;" href="login">Alreay existing account</a>
+                    </div>
+                  </footer>
+                </div>
+              </cdk-step>
+              <cdk-step #stepAddress [editable]="isEditable" formGroupName="1" [stepControl]="formArray.get([1])">
+                <ng-template cdkStepLabel>
+                  <span class="icon is-medium">
+                    <fa-icon [icon]="faAddressBook" size="fa-lg"></fa-icon>
+                  </span>
+                  <span>Identification Details</span>
+                </ng-template>
+                <div class="container">
+
+                  <div class="field">
+                    <label class="label">Address 1</label>
+                    <p class="control is-expanded has-icons-right">
+                      <input formControlName="addressOne" class="input" type="text" placeholder="Address One">
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </p>
+                  </div>
+                  <div class="field">
+                    <label class="label">Address 2</label>
+                    <p class="control is-expanded has-icons-right">
+                      <input formControlName="addressTwo" class="input" type="text" placeholder="Address Two">
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </p>
+                  </div>
+                  <div class="field">
+                    <label class="label">City</label>
+                    <p class="control is-expanded has-icons-right">
+                      <input formControlName="city" class="input" type="text" placeholder="City">
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </p>
+                  </div>
+
+                  <div class="field">
+                    <label class="label">District/State/Region</label>
+                    <div class="control has-icons-right">
+                      <input formControlName="state" class="input" type="text" placeholder="Dist/State">
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Country</label>
+                    <div class="control has-icons-right">
+                      <input formControlName="country" class="input" type="text" placeholder="Country">
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </div>
+                  </div>
+
+                  <footer class="my-footer">
+                    <div class="buttons">
+                      <button [disabled]="!isEditable" type="button" class="button is-outline is-warning"
+                        cdkStepperPrevious>
+                        <span class="icon medium">
+                          <fa-icon [icon]="faChevronLeft"> </fa-icon>
+                        </span>
+                        <span> Previous</span>
+                      </button>
+
+                      <button [disabled]="formArray.get([1])?.invalid" type="button"
+                        class="button is-outline is-primary" cdkStepperNext>
+                        <span> Next</span>
+                        <span class="icon medium">
+                          <fa-icon [icon]="faChevronRight" size="fa-lg"> </fa-icon>
+                        </span>
+                      </button>
+                    </div>
+                  </footer>
+                </div>
+              </cdk-step>
+
+              <cdk-step [editable]="isEditable" formGroupName="2" [stepControl]="formArray.get([2])">
+                <ng-template cdkStepLabel>
+                  <span class="icon is-medium">
+                    <fa-icon [icon]="faPerson" size="fa-lg"></fa-icon>
+                  </span>
+                  <span>Credit Card Details</span>
+                </ng-template>
+                <div class="container">
+                  <div class="field is-horizontal">
+                    <div class="field-body">
+                      <div class="field">
+                        <label class="label">Credit Card Number</label>
+                        <p class="control is-expanded has-icons-right">
+                          <input formControlName="creditCardNo" class="input" type="text" placeholder="It must be a 16-digit number">
+                          <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                          </span>
+                        </p>
+                      </div>
+                      <div class="field">
+                        <label class="label">Expiry</label>
+                        <p class="control is-expanded has-icons-right">
+                          <input formControlName="expiryDate" class="input" type="text" placeholder="It must be in the format 'MM/YY'">
+                          <span class="icon is-small is-right">
+                            <i class="fas fa-check"></i>
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="field">
+                    <label class="label">CVV Code</label>
+                    <div class="control has-icons-right">
+                      <input formControlName="cvvCode" class="input" type="number" placeholder="It must be a 3 or 4-digit number">
+                      <span class="icon is-small is-right">
+                        <i class="fas fa-check"></i>
+                      </span>
+                    </div>
+                  </div> -->
+
+                  <footer class="my-footer">
+                    <div class="buttons">
+                      <button [disabled]="!isEditable" type="button" class="button is-outline is-warning"
+                        cdkStepperPrevious>
+                        <span class="icon medium">
+                          <fa-icon [icon]="faChevronLeft"> </fa-icon>
+                        </span>
+                        <span> Previous</span>
+                      </button>
+
+                      <button type="button" class="button is-outline is-danger" (click)="cdkStepper.reset()">
+                        <span class="icon medium">
+                          <fa-icon [icon]="faBan"> </fa-icon>
+                        </span>
+                        <span>Reset</span>
+                      </button>
+
+                      <button type="submit" [disabled]="frmStepper.invalid" class="button is-outline is-primary">
+                        <span class="icon medium">
+                          <fa-icon [icon]="faSave" size="fa-lg"> </fa-icon>
+                        </span>
+                        <span>Register</span>
+                      </button>
+                    </div>
+                  </footer>
+                </div>
+              </cdk-step>
+            </app-my-stepper>
+          </form>
+
+          <!-- <div *ngIf="frmValues" class="content has-content-centered">
+            <h3 class="subtitle">Form Values</h3>
+            {{ frmValues | json }}
+            {{isLinear}}
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>

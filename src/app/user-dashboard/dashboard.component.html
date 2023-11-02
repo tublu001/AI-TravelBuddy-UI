@@ -1,0 +1,47 @@
+<div class="container">
+    <div class="jumbotron jumbotron-fluid mb-5">
+        <div class="container-fixed">
+            <h3>Welcome {{user?.firstName}} :)</h3>
+            <p>Please find your details in below section</p>
+        </div>
+    </div>
+    <div class="card card-custom example example-compact gutter-b">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Username</th>
+                        <th scope="col">Email Id</th>
+                        <th scope="col">Mobile</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{user?.firstName}} {{user?.lastName}}</td>
+                        <!-- <td><a target="_blank" href="#">{{user?.name}}</a></td> -->
+                        <td>{{user?.emailId}}</td>
+                        <td>{{user?.mobileNumber}}</td>
+                        <td>{{user?.addressLine1}}</td>
+                        <td>{{user?.city}}</td>
+                        <td>{{user?.country}}</td>
+                        <td>
+                            <div ngbDropdown container="body">
+                                <button class="btn" ngbDropdownToggle>Actions</button>
+                                <div ngbDropdownMenu>
+                                    <button ngbDropdownItem>Edit</button>
+                                    <button ngbDropdownItem>Block</button>
+                                    <div class="dropdown-divider"></div>
+                                    <button ngbDropdownItem>Delete</button>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,115 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="text-center">{{title}}</h5>
+                </div>
+                <div class="card-body">
+                    <form [formGroup]="angForm" novalidate (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label>First Name:</label>
+                            <input class="form-control" formControlName="firstName" type="text" placeholder="">
+                        </div>
+                        <div *ngIf="f['firstName'].invalid && (f['firstName'].dirty || f['firstName'].touched)">
+                            <span class="text-danger" *ngIf="f['firstName'].errors?.['required']">
+                                *First Name is required.
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Last Name:</label>
+                            <input class="form-control" formControlName="lastName" type="text">
+                        </div>
+                        <div *ngIf="f['lastName'].invalid && (f['lastName'].dirty || f['lastName'].touched)">
+                            <span class="text-danger" *ngIf="f['lastName'].errors?.['required']">
+                                *Last Name is required.
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Id:</label>
+                            <input class="form-control" formControlName="emailId" type="text" placeholder="eg: abc@mail.com">
+                        </div>
+                        <div *ngIf="f['emailId'].invalid && (f['emailId'].dirty || f['emailId'].touched)">
+                            <span class="text-danger" *ngIf="f['emailId'].errors?.['required']">
+                                *Email Id is required.
+                            </span>
+                            <span class="text-danger"
+                                *ngIf="f['emailId'].errors?.['email'] && (f['emailId'].touched)">Email Id must be a valid
+                                email address</span>
+                        </div>
+                        <div class="form-group">
+                            <label>PAN Number:</label>
+                            <input class="form-control" formControlName="panNumber" type="text" placeholder="eg: ABCDE1234F" maxlength="10" minlength="10">
+                        </div>
+                        <div *ngIf="f['panNumber'].invalid && (f['panNumber'].dirty || f['panNumber'].touched)">
+                            <span class="text-danger" *ngIf="f['panNumber'].errors?.['required']">
+                                *PAN Number is required.
+                            </span>
+                        </div>
+                        <div *ngIf="f['panNumber'].invalid && (f['panNumber'].dirty || f['panNumber'].touched)">
+                            <span class="text-danger" *ngIf="f['panNumber'].errors?.['pattern']">
+                                *PAN Number is invalid.
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Bank Account Number:</label>
+                            <input class="form-control" formControlName="bankAccountNumber" type="text">
+                        </div>
+                        <div
+                            *ngIf="f['bankAccountNumber'].invalid && (f['bankAccountNumber'].dirty || f['bankAccountNumber'].touched)">
+                            <span class="text-danger" *ngIf="f['bankAccountNumber'].errors?.['required']">
+                                *Bank Account Number is required.
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Number:</label>
+                            <input class="form-control" formControlName="mobileNumber" type="text" placeholder="Enter 10 digit Mobile Number" maxlength="10" minlength="10" (keyup)="onKeypressEvent($event)">
+                        </div>
+                        <div *ngIf="f['mobileNumber'].invalid && (f['mobileNumber'].dirty || f['mobileNumber'].touched)">
+                            <span class="text-danger" *ngIf="f['mobileNumber'].errors?.['required']">
+                                *Mobile Number is required.
+                            </span>
+                        </div>
+                         <div *ngIf="f['mobileNumber'].invalid && (f['mobileNumber'].dirty || f['mobileNumber'].touched)">
+                            <span class="text-danger" *ngIf="f['mobileNumber']?.errors?.['pattern']">
+                                *Mobile Number is invalid.
+                            </span>
+                        </div>
+                        <div *ngIf="(f['mobileNumber'].dirty || f['mobileNumber'].touched)">
+                            <span class="text-danger" *ngIf="isMobileExists">
+                                *Mobile Number is already in use.
+                            </span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input formControlName="password" id="password" type="password" class="form-control">
+                            <div *ngIf="f['password'].touched && f['password'].invalid">
+                                <span class="text-danger" *ngIf="f['password'].errors?.['required']">*Password is
+                                    required.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            <label for="confirm_password">Confirm Password:</label>
+                            <input formControlName="confirm_password" id="confirm_password" type="password"
+                                class="form-control">
+                            <div *ngIf="f['confirm_password'].touched && f['confirm_password'].invalid">
+                                <span class="text-danger" *ngIf="f['confirm_password'].errors?.['required']">*Confirm
+                                    Password is
+                                    required.</span>
+                                <span class="text-danger"
+                                    *ngIf="f['confirm_password'].errors?.['confirmedValidator']">Password and Confirm
+                                    Password must be
+                                    match.</span>
+                            </div>
+                        </div>
+                        <button type="submit" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-success">
+                            Save
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

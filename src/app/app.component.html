@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-xl navbar-brand-md navbar navbar-dark bg-dark" >
+    <div class="container-fluid ">
+        <div class="navbar-brand">
+            <img class="img-fluid" src="assets/icon.png" alt="logo" style="height: 25%;">
+        </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <!-- <li class="nav-item">
+                    <a *ngIf="!(isLoggedIn$ | async)" class="nav-link" href="login"   routerLinkActive="active">Login</a>
+                </li> -->
+                <li class="nav-item">
+                    <button *ngIf="isLoggedIn$ | async" class="nav-link" (click)="onLogout()"
+                      style="background-color: transparent; color: white;">Logout</button>
+                  </li>
+                  
+                <!-- <li class="nav-item">
+                    <a *ngIf="!(isLoggedIn$ | async)" class="nav-link" href="registration">Sign Up</a>
+                </li> -->
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid custom-theme">
+    <router-outlet></router-outlet>
+</div>

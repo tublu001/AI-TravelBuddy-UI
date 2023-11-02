@@ -1,0 +1,18 @@
+// styles.scss
+
+@import '~@angular/material/theming';
+
+// Define your custom background color
+$custom-background-color: #e0e0e0;
+
+// Create a custom Material theme
+$custom-theme: mat.define-light-theme((
+  color: (
+    background: (
+      default: $custom-background-color
+    ),
+  )
+));
+
+// Include the custom theme in the app
+@include mat.all-component-themes($custom-theme);

@@ -1,0 +1,179 @@
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-12">
+      
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isLoading">
+  <!-- Display loading spinner here -->
+  <!-- <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div> -->
+  <div class="loading-container" *ngIf="loader">
+    <img src="assets/loader.gif" alt="Loading..." />
+    <!-- <mat-spinner></mat-spinner> -->
+  </div>
+</div>
+
+
+<div *ngIf="!isLoading && touristPlacesData" class="background-image">
+  <div class="container mt-5">
+    <div class="row">
+      <!-- Carousel of Cards (Image) -->
+      <div class="col-md-6">
+        <div id="cardCarousel" class="carousel slide mb-4" data-ride="carousel">
+          <div class="carousel-inner">
+            <!-- Card 1 -->
+            <div *ngFor="let image of touristPlacesData?.touristPlaces[currentIndex]?.imageUrl" class="carousel-item active">
+              <div class="card">
+                <img [src]="image" alt="Destination Image" class="card-img-top">
+                <div class="card-body">
+                  <!-- Place Information Section -->
+                  <h1 class="card-title">{{ touristPlacesData?.touristPlaces[currentIndex]?.place }} <i class="fas fa-map-marker"></i></h1>
+                  <p class="card-subtitle mb-2 text-muted category">{{ touristPlacesData?.touristPlaces[currentIndex]?.category }}</p>
+                </div>
+                <div class="card-footer">
+                  <p class="card-text">{{ touristPlacesData?.touristPlaces[currentIndex]?.description }}</p>
+                </div>
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <!-- Add more cards as needed -->
+
+          </div>
+          <!-- Carousel Navigation -->
+          <a class="carousel-control-prev" href="#cardCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#cardCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Right Grid (Content) -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-body">
+            <!-- Place Information Section -->
+            <h1 class="card-title">{{ touristPlacesData?.touristPlaces[currentIndex]?.place }} <i class="fas fa-map-marker"></i></h1>
+            <p class="card-subtitle mb-2 text-muted category">{{ touristPlacesData?.touristPlaces[currentIndex]?.category }}</p>
+            <p class="card-text">{{ touristPlacesData?.touristPlaces[currentIndex]?.description }}</p>
+          </div>
+        </div>
+
+        <!-- Transportation Details -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-plane"></i> Transportation</h2>
+            <ul class="list-unstyled">
+              <li *ngFor="let transport of touristPlacesData?.touristPlaces[currentIndex]?.transportationDetails">
+                <span class="font-weight-bold">{{ transport?.mode }}</span>
+                <span>{{ transport?.duration }}</span>
+                <span>{{ transport?.distance }}</span>
+                <span>{{ transport?.cost }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Climate Prediction -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-sun"></i> Climate Prediction</h2>
+            <p class="card-text">{{ touristPlacesData?.touristPlaces[currentIndex]?.climatePrediction?.temperature }} - {{
+              touristPlacesData?.touristPlaces[currentIndex]?.climatePrediction?.weather }}</p>
+          </div>
+        </div>
+
+        <!-- Famous Foods -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-utensils"></i> Famous Foods</h2>
+            <ul class="list-unstyled">
+              <li *ngFor="let food of touristPlacesData?.touristPlaces[currentIndex]?.famousFoods">{{ food }}</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Upcoming Events -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-calendar"></i> Upcoming Events</h2>
+            <ul class="list-unstyled">
+              <li *ngFor="let event of touristPlacesData?.touristPlaces[currentIndex]?.events">
+                <span>{{ event?.event }}</span>
+                <span>{{ event?.timeline }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Customer Reviews -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-star"></i> Customer Reviews</h2>
+            <ul class="list-unstyled">
+              <li *ngFor="let review of touristPlacesData?.touristPlaces[currentIndex]?.customerReviews">
+                <span>{{ review?.name }}</span>
+                <span>{{ review?.review }}</span>
+                <span>{{ review?.rating }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Residence Details -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-home"></i> Residence Details</h2>
+            <ul class="list-unstyled">
+              <li *ngFor="let residence of touristPlacesData?.touristPlaces[currentIndex]?.residenceDetails">
+                <span>{{ residence?.name }}</span>
+                <span>{{ residence?.address }}</span>
+                <span>{{ residence?.plans?.join(', ') }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Travel Agents -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-user-tie"></i> Travel Agents</h2>
+            <ul class="list-unstyled">
+              <li *ngFor="let agent of touristPlacesData?.touristPlaces[currentIndex]?.travelAgents">
+                <span>{{ agent?.name }}</span>
+                <span>{{ agent?.contactNo }}</span>
+                <span><a href="{{ agent?.website }}" target="_blank">{{ agent?.website }}</a></span>
+                <span>{{ agent?.emailId }}</span>
+                <span>{{ agent?.address }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Location Details -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-map-marked"></i> Location Details</h2>
+            <p class="card-text">{{ touristPlacesData?.touristPlaces[currentIndex]?.locationDetails?.country }}, {{ touristPlacesData?.touristPlaces[currentIndex]?.locationDetails?.state
+              }}, {{ touristPlacesData?.touristPlaces[currentIndex]?.locationDetails?.city }} {{ touristPlacesData?.touristPlaces[currentIndex]?.locationDetails?.zipcode }}</p>
+          </div>
+        </div>
+
+        <!-- Total Distance -->
+        <div class="card">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-road"></i> Total Distance</h2>
+            <p class="card-text">{{ touristPlacesData?.touristPlaces[currentIndex]?.totalDistance }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

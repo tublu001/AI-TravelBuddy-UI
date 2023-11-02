@@ -1,0 +1,262 @@
+<div class="p-3 mt-5 mb-0 bg-light">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Autocomplete Text Field 1 (Source Country) -->
+      <img src="assets/header_icon.gif" style="height: 80px;width: 270px; margin-right: 100px;">
+      <div class="col-lg-2 col-md-4 col-12 form-group">
+        <input type="text" [disabled]="isLoading" class="form-control" placeholder="Source Country"
+          [(ngModel)]="selectedSourceCountry" [ngbTypeahead]="searchSourceCountry"
+          (selectItem)="selectSourceCountry($event)" />
+      </div>
+
+      <!-- Autocomplete Text Field 2 (Source City) -->
+      <div class="col-lg-2 col-md-4 col-12 form-group">
+        <input type="text" [disabled]="isLoading" class="form-control" placeholder="Source City"
+          [(ngModel)]="selectedSourceCity" [ngbTypeahead]="searchSourceCity" (selectItem)="selectSourceCity($event)" />
+      </div>
+
+      <!-- Autocomplete Text Field 3 (Destination Country) -->
+      <div class="col-lg-2 col-md-4 col-12 form-group">
+        <input type="text" [disabled]="isLoading" class="form-control" placeholder="Destination Country"
+          [(ngModel)]="selectedDestinationCountry" [ngbTypeahead]="searchDestinationCountry"
+          (selectItem)="selectDestinationCountry($event)" />
+      </div>
+
+      <!-- Autocomplete Text Field 4 (Destination City) -->
+      <div class="col-lg-2 col-md-4 col-12 form-group">
+        <input type="text" [disabled]="isLoading" class="form-control" placeholder="Destination City"
+          [(ngModel)]="selectedDestinationCity" [ngbTypeahead]="searchDestinationCity"
+          (selectItem)="selectDestinationCity($event)" /> <br>
+        <div class="form-group float-right">
+          <button class="btn btn-primary" type="submit" (click)="search()" [disabled]="isLoading">Search</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- <div *ngIf="isLoading" id="loading-spinner" class="d-flex justify-content-center align-items-center">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  [ngClass]="{'show': isHighlighted, 'bold-text': isBold}"
+</div> -->
+
+<div class="loader-overlay" [ngClass]="{'show': isLoading}"></div>
+<div class="spanner" [ngClass]="{'show': isLoading}">
+  <div class="loader"></div>
+  <p>Curating Best Travel Experience for you ....</p>
+</div>
+
+<!--class="background-image"-->
+<div *ngIf="!isLoading && touristPlacesData">
+  <div class="container mt-5 justify-content-center">
+    <div class="row">
+      <h2>
+        <span><b>Summary of your's next journey</b></span>
+      </h2>
+    </div>
+    <div class="row">
+      <!-- Left Grid (Image) -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <!-- Image inside the card body -->
+              <div class="mx-auto px-1">
+                <img [src]="touristPlacesData?.touristPlaces[currentIndex]?.imageUrls[0]" alt="Destination Image"
+                  class="destination-image">
+                <!-- <img src="assets/India Gate_1.png" alt="Destination Image" class="destination-image"> -->
+              </div>
+            </div>
+          </div>
+          <div class="card-footer justify-content-center">
+            <div class="row">
+              <!-- Button on the left side of the card footer -->
+              <div class="col-md-6">
+                <button class="btn btn-primary ml-2" (click)="prevPlace()" [disabled]="currentIndex === 0">Previous
+                </button>
+              </div>
+              <!-- Button on the right side of the card footer -->
+              <div class="col-md-6">
+                <button class="btn btn-primary ml-2" (click)="nextPlace()"
+                  [disabled]="currentIndex === touristPlacesData?.touristPlaces?.length - 1">Next</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Grid (Content) -->
+      <div class="col-md-6">
+        <div class="card mb-4">
+          <div class="card-body">
+            <!-- Place Information Section -->
+            <h1 class="card-title">{{ touristPlacesData?.touristPlaces[currentIndex]?.place }} <i
+                class="fas fa-map-marker"></i></h1>
+            <p class="card-subtitle mb-2 text-muted category">{{
+              touristPlacesData?.touristPlaces[currentIndex]?.category }}</p>
+            <p class="card-text">{{ touristPlacesData?.touristPlaces[currentIndex]?.description }}</p>
+          </div>
+        </div>
+
+        <!-- Transportation Details -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-plane"></i> Transportation</h2>
+            <ul class="list-unstyled">
+              <li *ngFor="let transport of touristPlacesData?.touristPlaces[currentIndex]?.transportationDetails">
+                <span class="font-weight-bold">Mode of Transport:</span><span class="font-weight-light px-1">{{
+                  transport.mode }}</span><br />
+                <span class="font-weight-bold">Total Duration:</span><span class="font-weight-light px-1">{{
+                  transport.duration }}</span><br />
+                <span class="font-weight-bold">Total Distance:</span><span class="font-weight-light px-1">{{
+                  transport.distance }}</span><br />
+                <span class="font-weight-bold">Estimated Cost:</span><span class="font-weight-light px-1">{{ transport.cost
+                  }}</span>
+                  <hr>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Climate Prediction -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-sun"></i> Climate Prediction</h2>
+            <p class="card-text">
+              <span class="font-weight-bold">Mode of Transport:</span><span class="font-weight-light px-1">{{
+                touristPlacesData?.touristPlaces[currentIndex]?.climatePrediction.temperature }} - </span><br />
+              <span class="font-weight-bold">Mode of Transport:</span><span class="font-weight-light px-1">{{
+                touristPlacesData?.touristPlaces[currentIndex]?.climatePrediction.weather }}</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Famous Foods -->
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="card-title"><i class="fas fa-utensils"></i> Famous Foods</h2>
+            <ul class="list-unstyled">
+              <li *ngFor="let food of touristPlacesData?.touristPlaces[currentIndex]?.famousFoods">{{ food }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-6 col-md-6">
+          <!-- Upcoming Events -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title"><i class="fas fa-calendar"></i> Upcoming Events</h2>
+              <ul class="list-unstyled">
+                <li *ngFor="let event of touristPlacesData?.touristPlaces[currentIndex]?.events">
+                  <span class="font-weight-bold">Event Name:</span><span class="font-weight-light px-1">{{ event.event
+                    }}</span><br>
+                  <span class="font-weight-bold">Event Timeline:</span><span>{{ event.timeline }}</span><br>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Total Distance -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title"><i class="fas fa-road"></i> Total Distance</h2>
+              <p class="card-text">{{ touristPlacesData?.touristPlaces[currentIndex]?.totalDistance }}</p>
+            </div>
+          </div>
+
+          <!-- Customer Reviews -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title"><i class="fas fa-star"></i> Customer Reviews</h2>
+              <ul class="list-unstyled">
+                <li *ngFor="let review of touristPlacesData?.touristPlaces[currentIndex]?.customerReviews">
+                  <span class="font-weight-bold">Customer Name:</span><span class="font-weight-light px-1">{{ review.name
+                    }}</span><br>
+                  <span class="font-weight-bold">Customer Review Reviews:</span><span class="font-weight-light px-1">{{
+                    review.review }}</span><br>
+                  <span class="font-weight-bold">Customer Review Rating:</span><span>{{ review.rating }}</span>
+                  <hr>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+
+          <!-- Travel Agents -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title"><i class="fas fa-user-tie"></i> Travel Agents</h2>
+              <ul class="list-unstyled">
+                <li *ngFor="let agent of touristPlacesData?.touristPlaces[currentIndex]?.travelAgents">
+                  <span class="font-weight-bold">Agent Name:</span><span class="font-weight-light px-1">{{ agent.name
+                    }}</span><br>
+                  <span class="font-weight-bold">Agent ContactNo:</span><span class="font-weight-light px-1">{{
+                    agent.contactNo }}</span><br>
+                  <span class="font-weight-bold">Agent Webstite:</span><span class="font-weight-light px-1"><a
+                      href="{{ agent.website }}" target="_blank">{{ agent.website }}</a></span><br>
+                  <span class="font-weight-bold">Agent Email ID:</span><span class="font-weight-light px-1">{{ agent.emailId
+                    }}</span><br>
+                  <span class="font-weight-bold">Agent Address:</span><span class="font-weight-light px-1">{{ agent.address
+                    }}</span>
+                    <hr>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Location Details -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title"><i class="fas fa-map-marked"></i> Location Details</h2>
+              <p class="card-text">
+                <span class="font-weight-bold">Country Name:</span><span class="font-weight-light px-1">{{
+                  touristPlacesData?.touristPlaces[currentIndex]?.locationDetails.country }} </span><br>
+                <span class="font-weight-bold">Country State:</span><span
+                  class="font-weight-light px-1">{{touristPlacesData?.touristPlaces[currentIndex]?.locationDetails.state }}
+                </span><br>
+                <span class="font-weight-bold">Country City:</span><span
+                  class="font-weight-light px-1">{{touristPlacesData?.touristPlaces[currentIndex]?.locationDetails.city }}
+                </span><br>
+                <span class="font-weight-bold">Country Zipcode:</span><span
+                  class="font-weight-light px-1">{{touristPlacesData?.touristPlaces[currentIndex]?.locationDetails.zipcode
+                  }}</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Residence Details -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <h2 class="card-title"><i class="fas fa-home"></i> Residence Details</h2>
+              <ul class="list-unstyled">
+                <li *ngFor="let residence of touristPlacesData?.touristPlaces[currentIndex]?.residenceDetails">
+                  <span class="font-weight-bold">Residence Name:</span><span class="font-weight-light px-1">{{ residence.name
+                    }}</span><br>
+                  <span class="font-weight-bold">Residence Address:</span><span class="font-weight-light px-1">{{
+                    residence.address }}</span><br>
+                  <ul class="list-unstyled">
+                    <li *ngFor="let plan of residence?.plans">
+                      <span class="font-weight-bold">Residence Plan:</span><span class="font-weight-light px-1">{{ plan
+                        }}</span>
+                    </li>
+                    <hr>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</div>
